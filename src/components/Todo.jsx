@@ -41,7 +41,8 @@ function Todo() {
                     <li key={tObj.id}>
                         <span>{tObj.title}</span>
                         <button onClick={() => handleDelete(tObj.id)}>Delete</button></li>
-                ))}
+                )
+                )}
             </ul>
         </div>
     )
