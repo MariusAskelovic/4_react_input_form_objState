@@ -1,0 +1,11 @@
+.errorMsg {
+  display: inline-block;
+  padding: 15px;
+  background-color: tomato;
+  color: white;
+  border-radius: 5px;
+}
+
+/* .errorMsg:empty {
+  display: none;
+} */
