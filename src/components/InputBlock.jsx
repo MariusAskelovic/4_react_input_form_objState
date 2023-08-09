@@ -12,8 +12,10 @@ function InputBlock() {
     }
 
     function makeClick() {
-        setShowText(true)
+        setInputVal('')
     }
+
+
 
     return (
         <div className="container">
