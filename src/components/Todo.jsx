@@ -19,8 +19,7 @@ Labai svarbu!!! Nemodifikuoti mainTodoArr
 
 function Todo() {
     const [mainTodoArr, setMainTodoArr] = useState(initTodos)
-    // const []
-    // const [newTodo, setNewTodo] = useState()
+    const [inputVal, setInputVal] = useState('')
 
     function handleDelete(idToDelete) {
         // console.log('lets delete', idToDelete);
@@ -33,9 +32,18 @@ function Todo() {
 
 
     function addTodo() {
-
-        const addedArr = [...mainTodoArr]
+        const newObj = [{
+            id: Math.floor((Math.random() * 10000) + 1),
+            title: inputVal,
+            isDone: false,
+        }]
+        const addedArr = [...mainTodoArr, ...newObj]
         console.log('addedArr ===', addedArr);
+        setMainTodoArr(addedArr);
+    }
+
+    function getInputVal(event) {
+        setInputVal(event.target.value);
     }
 
     return (
@@ -43,7 +51,11 @@ function Todo() {
             <h2>Todo list</h2>
             <fieldset>
                 <legend>Add Todo</legend>
-                <input type="text" placeholder="new todo" />
+                <input
+                    type="text"
+                    placeholder="new todo"
+                    onChange={getInputVal}
+                />
                 <button onClick={addTodo}>Add</button>
             </fieldset>
             <ul>
