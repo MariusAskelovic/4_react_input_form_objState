@@ -1,13 +1,16 @@
 import InputBlock from "./components/InputBlock";
 import Login from "./components/Login";
+import PassBlock from "./components/PassBlock";
+import Register from "./components/Register";
 import Todo from "./components/Todo";
 import './style/App.css'
 
 export default function App() {
   return <div>
-    <h1>Im new App</h1>
     {false && <InputBlock />}
     {false && <Login />}
-    <Todo />
+    {true && <Todo />}
+    {false && <PassBlock />}
+    {false && <Register />}
   </div>
 }

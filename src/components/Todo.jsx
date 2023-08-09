@@ -14,11 +14,16 @@ tai su setMainTodoArr funkcija turim grazinti masyva kuris atrodo be elemento
 Labai svarbu!!! Nemodifikuoti mainTodoArr
 */
 
+
+// su spread (...) galima
+
 function Todo() {
     const [mainTodoArr, setMainTodoArr] = useState(initTodos)
+    // const []
+    // const [newTodo, setNewTodo] = useState()
 
     function handleDelete(idToDelete) {
-        console.log('lets delete', idToDelete);
+        // console.log('lets delete', idToDelete);
         // filter grazina nauja masyva nemodifikuojant originalo
         const filtered = mainTodoArr.filter((tObj) => tObj.id !== idToDelete)
         // console.table(filtered);
@@ -27,13 +32,19 @@ function Todo() {
     }
 
 
+    function addTodo() {
+
+        const addedArr = [...mainTodoArr]
+        console.log('addedArr ===', addedArr);
+    }
+
     return (
         <div>
             <h2>Todo list</h2>
             <fieldset>
                 <legend>Add Todo</legend>
                 <input type="text" placeholder="new todo" />
-                <button>Add</button>
+                <button onClick={addTodo}>Add</button>
             </fieldset>
             <ul>
                 {mainTodoArr.map((tObj) =>
