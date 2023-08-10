@@ -9,3 +9,8 @@
 /* .errorMsg:empty {
   display: none;
 } */
+
+.todoDone {
+  text-decoration: line-through;
+  color: red;
+}

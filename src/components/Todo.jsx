@@ -14,8 +14,12 @@ tai su setMainTodoArr funkcija turim grazinti masyva kuris atrodo be elemento
 Labai svarbu!!! Nemodifikuoti mainTodoArr
 */
 
-
-// su spread (...) galima
+const liStyle = {
+    display: 'flex',
+    width: '240px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+}
 
 function Todo() {
     const [mainTodoArr, setMainTodoArr] = useState(initTodos)
@@ -25,12 +29,9 @@ function Todo() {
         // console.log('lets delete', idToDelete);
         // filter grazina nauja masyva nemodifikuojant originalo
         const filtered = mainTodoArr.filter((tObj) => tObj.id !== idToDelete)
-        // console.table(filtered);
         setMainTodoArr(filtered)
-        // console.table(initTodos);
+        console.table(filtered);
     }
-
-
     function addTodo() {
         const newObj = [{
             id: Math.floor((Math.random() * 10000) + 1),
@@ -38,13 +39,23 @@ function Todo() {
             isDone: false,
         }]
         const addedArr = [...mainTodoArr, ...newObj]
-        console.log('addedArr ===', addedArr);
         setMainTodoArr(addedArr);
+        console.table(addedArr)
     }
-
     function getInputVal(event) {
         setInputVal(event.target.value);
     }
+
+    // function done(isDoneId) {
+    //     setMainTodoArr(mainTodoArr.map((tObj) => {
+    //         if (tObj.id === isDoneId) {
+    //             if (tObj.isDone === true) {
+
+    //             }
+    //         }
+    //     }))
+    // }
+    const mainArrayEmpty = mainTodoArr.length === 0;
 
     return (
         <div>
@@ -58,12 +69,16 @@ function Todo() {
                 />
                 <button onClick={addTodo}>Add</button>
             </fieldset>
+            {mainArrayEmpty && <h2>Nera nei vieno todo, pridekite nauja</h2>}
             <ul>
                 {mainTodoArr.map((tObj) =>
                 (
-                    <li key={tObj.id}>
+                    // <li key={tObj.id} style={liStyle} className={tObj.isDone ? "todoDone" : ""}>
+                    <li key={tObj.id} style={liStyle}>
                         <span>{tObj.title}</span>
-                        <button onClick={() => handleDelete(tObj.id)}>Delete</button></li>
+                        <button onClick={() => handleDelete(tObj.id)}>Delete</button>
+                        {/* <button onClick={() => done(tObj.id)}>Done</button> */}
+                    </li>
                 )
                 )}
             </ul>
