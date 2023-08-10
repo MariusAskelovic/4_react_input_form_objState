@@ -10,7 +10,12 @@
   display: none;
 } */
 
-.todoDone {
+.finished {
   text-decoration: line-through;
-  color: red;
+  color: gray;
+}
+
+.pointer {
+  cursor: pointer;
+  font-size: 18px;
 }

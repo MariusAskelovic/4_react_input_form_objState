@@ -1,59 +1,64 @@
-import { useState } from "react"
+import { useState } from 'react';
 
 const initTodos = [
     { id: 1, title: 'Do pushups', isDone: false },
     { id: 2, title: 'Buy Milk', isDone: true },
-    { id: 3, title: 'Fly a kite', isDone: false },
+    { id: 3, title: 'Fly a Kite', isDone: false },
     { id: 4, title: 'Go to park', isDone: false },
-]
+];
 
-/*
-jei idToDelete === 3
-tai su setMainTodoArr funkcija turim grazinti masyva kuris atrodo be elemento
-    { id: 3, title: 'Fly a kite', isDone: false },
+/* 
+jei idToDelete === 3 
+tai setMainTodoArr funckija turim grazinti masyva kuris atrodo be elemento { id: 3, title: 'Fly a Kite', isDone: false },
 Labai svarbu!!! Nemodifikuoti mainTodoArr
+[
+  { id: 1, title: 'Do pushups', isDone: false },
+  { id: 2, title: 'Buy Milk', isDone: true },
+  { id: 4, title: 'Go to park', isDone: false },
+]
 */
 
-const liStyle = {
-    display: 'flex',
-    width: '240px',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-}
+export default function Todo() {
+    const [mainTodoArr, setMainTodoArr] = useState(initTodos);
+    const [newTodoTitle, setNewTodoTitle] = useState('');
 
-function Todo() {
-    const [mainTodoArr, setMainTodoArr] = useState(initTodos)
-    const [inputVal, setInputVal] = useState('')
+    function inputTodo(event) {
+        setNewTodoTitle(event.target.value);
+    }
 
     function handleDelete(idToDelete) {
-        // console.log('lets delete', idToDelete);
-        // filter grazina nauja masyva nemodifikuojant originalo
-        const filtered = mainTodoArr.filter((tObj) => tObj.id !== idToDelete)
-        setMainTodoArr(filtered)
-        // setMainTodoArr((prevTodoArr) => { prevTodoArr.filter((tObj) => tObj.id !== idToDelete) })
+        console.log('lets delete', idToDelete);
+        // filter funkcija grazina nauja masyva reiskia nemodifikuojam orginalo
+        const filtered = mainTodoArr.filter((tObj) => tObj.id !== idToDelete);
         // console.table(filtered);
-    }
-    function addTodo() {
-        const newObj = {
-            id: Math.floor((Math.random() * 10000) + 1),
-            title: inputVal,
-            isDone: false,
-        }
-        setMainTodoArr([...mainTodoArr, newObj]);
-    }
-    function getInputVal(event) {
-        setInputVal(event.target.value);
+        setMainTodoArr(filtered);
+        // setMainTodoArr((prevTodoArr) => prevTodoArr.filter((tObj) => tObj.id !== idToDelete))
     }
 
-    // function done(isDoneId) {
-    //     setMainTodoArr(mainTodoArr.map((tObj) => {
-    //         if (tObj.id === isDoneId) {
-    //             if (tObj.isDone === true) {
+    // handleAddTodo
+    function handleAddTodo() {
+        // paimti input reiksme
+        // sukurti nauja todoObjasdasdasdasd
+        const newId = Math.random().toString().slice(4, 9);
+        const newTodoObj = { id: newId, title: newTodoTitle, isDone: false };
+        console.log('newTodoObj ===', newTodoObj);
 
-    //             }
-    //         }
-    //     }))
-    // }
+        // atnaujinam mainTodoArr su setMainTodoArr paduodami nauja masyva su pridetu nauju tObj
+        setMainTodoArr([...mainTodoArr, newTodoObj]);
+    }
+    // handleToggleTodo
+    function handleToggleTodo(idToToggle) {
+        console.log('handleToggleTodo', idToToggle);
+        const pakeistasArr = mainTodoArr.map((tObj) => {
+            if (tObj.id === idToToggle) {
+                // pasidarom kopija, esama isDone keiciam i priesinga jam
+                return { ...tObj, isDone: !tObj.isDone }
+            }
+            return tObj;
+        });
+        setMainTodoArr(pakeistasArr)
+    }
+
     const mainArrayEmpty = mainTodoArr.length === 0;
 
     return (
@@ -62,27 +67,28 @@ function Todo() {
             <fieldset>
                 <legend>Add Todo</legend>
                 <input
-                    type="text"
-                    placeholder="new todo"
-                    onChange={getInputVal}
+                    onChange={inputTodo}
+                    value={newTodoTitle}
+                    type='text'
+                    placeholder='new todo'
                 />
-                <button onClick={addTodo}>Add</button>
+                <button onClick={handleAddTodo}>Add</button>
             </fieldset>
             {mainArrayEmpty && <h2>Nera nei vieno todo, pridekite nauja</h2>}
             <ul>
-                {mainTodoArr.map((tObj) =>
-                (
-                    // <li key={tObj.id} style={liStyle} className={tObj.isDone ? "todoDone" : ""}>
-                    <li key={tObj.id} style={liStyle}>
-                        <span>{tObj.title}</span>
+                {mainTodoArr.map((tObj) => (
+                    <li key={tObj.id}>
+                        <span
+                            onClick={() => handleToggleTodo(tObj.id)}
+                            className={tObj.isDone ? 'finished pointer' : 'pointer'}
+                            role='button'
+                        >
+                            {tObj.title}
+                        </span>{' '}
                         <button onClick={() => handleDelete(tObj.id)}>Delete</button>
-                        {/* <button onClick={() => done(tObj.id)}>Done</button> */}
                     </li>
-                )
-                )}
+                ))}
             </ul>
         </div>
-    )
+    );
 }
-
-export default Todo
