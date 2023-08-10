@@ -30,17 +30,16 @@ function Todo() {
         // filter grazina nauja masyva nemodifikuojant originalo
         const filtered = mainTodoArr.filter((tObj) => tObj.id !== idToDelete)
         setMainTodoArr(filtered)
-        console.table(filtered);
+        // setMainTodoArr((prevTodoArr) => { prevTodoArr.filter((tObj) => tObj.id !== idToDelete) })
+        // console.table(filtered);
     }
     function addTodo() {
-        const newObj = [{
+        const newObj = {
             id: Math.floor((Math.random() * 10000) + 1),
             title: inputVal,
             isDone: false,
-        }]
-        const addedArr = [...mainTodoArr, ...newObj]
-        setMainTodoArr(addedArr);
-        console.table(addedArr)
+        }
+        setMainTodoArr([...mainTodoArr, newObj]);
     }
     function getInputVal(event) {
         setInputVal(event.target.value);

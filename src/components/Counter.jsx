@@ -32,9 +32,9 @@ export default function Counter() {
         // kai reiksme priklauso nuo pries tai buvusios
         // atnaujinti reiktu su funkcija
         setValue((prevValue) => prevValue + 1);
-        // setValue((prevValue) => prevValue + 1);
-        // setValue((prevValue) => prevValue + 1);
-        // setValue((prevValue) => prevValue + 1);
+        setValue((prevValue) => prevValue + 1);
+        setValue((prevValue) => prevValue + 1);
+        setValue((prevValue) => prevValue + 1);
     }
 
     return (
